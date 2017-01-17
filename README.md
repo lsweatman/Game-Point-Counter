@@ -4,3 +4,4 @@
 ####Fix the trash button alignment
 ####Create persistent scores/names
 ####Find better color scheme
+To run use `npm run build` then `npm start`
