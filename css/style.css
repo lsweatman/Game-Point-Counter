@@ -1,0 +1,77 @@
+body,
+html,
+div.board,
+div#react-container {
+    height: 100%;
+    overflow: hidden;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+}
+
+div.person {
+    height: 45px;
+    width: 500px;
+    background-color: #848484;
+    position: relative;
+    -webkit-box-shadow: 5px 5px 15px 0 rgba(0, 0, 0, .2);
+    box-shadow: 5px 5px 15px 0 rgba(0, 0, 0, .2);
+}
+
+div.board {
+    width: 100%;
+    background: #eab92d;
+    background: radial-gradient(ellipse at center, #eab92d 57%, #c79810 99%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#eab92d', endColorstr='#c79810', GradientType=1);
+
+}
+
+/*input[type=button] {
+    vertical-align: middle;
+    display: block;
+    width: 50%;
+    margin: 0 auto;
+}*/
+
+.text-css {
+	height: 25px;
+    width: 25px;
+    background: rgb(201, 201, 201);
+    padding-top: 2px;
+}
+
+.deleteButton {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+}
+
+.standardButton {
+    padding-left: 5px;
+    margin-top: 5px;
+    margin-left: 15px;
+    display: table-cell;
+    vertical-align: middle;
+    top: 0;
+}
+
+.standardTextBox {
+    width: 55px;
+    padding-left: 5px;
+    margin-top: 5px;
+    margin-left: 15px;
+    display: table-cell;
+    vertical-align: middle;
+    top: 0;
+    position: relative;
+}
+
+.totalBox {
+    width: 25px;
+}
+
+.btn.btn-icon .glyphicon {
+    margin-right: 0;
+}
