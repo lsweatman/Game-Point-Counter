@@ -4,7 +4,15 @@
 var Person = React.createClass({
     getInitialState: function () {
         var test = this.props.children;
-        return {textAreaValue: test}
+        return {
+            textAreaValue: test,
+            textBoxName: this.props.textBoxName
+        }
+    },
+    handleTextBoxChange: function (evt) {
+        this.setState({
+            textBoxName: evt.target.value.substring(0,10)
+        });
     },
     handleAdd: function (addFactor) {
 		var oldValue = this.state.textAreaValue;
@@ -22,23 +30,38 @@ var Person = React.createClass({
         return (
             <div className="person">
                 <span>
-                    <button id="sub10Button" className="btn btn-primary standardButton" onClick={this.handleAdd.bind(this, -10)}>-10</button>
-                    <button id="sub4Button" className="btn btn-primary standardButton" onClick={this.handleAdd.bind(this, -4)}>-4</button>
-                    <button id="sub1Button" className="btn btn-primary standardButton" onClick={this.handleAdd.bind(this, -1)}>-1</button>
+                    <button id="sub10Button"
+                            className="btn btn-primary standardButton"
+                            onClick={this.handleAdd.bind(this, -10)}>-10</button>
+                    <button id="sub4Button"
+                            className="btn btn-primary standardButton"
+                            onClick={this.handleAdd.bind(this, -4)}>-4</button>
+                    <button id="sub1Button"
+                            className="btn btn-primary standardButton"
+                            onClick={this.handleAdd.bind(this, -1)}>-1</button>
                     <textarea defaultValue={this.props.children}
                               className="standardButton"
                               style={{"width":"45px","height":"27px"}}
                               value={this.state.textAreaValue}/>
-                    <button id="add1Button" className="btn btn-primary standardButton" onClick={this.handleAdd.bind(this, 1)}>+1</button>
-                    <button id="sub4Button" className="btn btn-primary standardButton" onClick={this.handleAdd.bind(this, 4)}>+4</button>
-                    <button id="add10Button" className="btn btn-primary standardButton" onClick={this.handleAdd.bind(this, 10)}>+10</button>
+                    <button id="add1Button"
+                            className="btn btn-primary standardButton"
+                            onClick={this.handleAdd.bind(this, 1)}>+1</button>
+                    <button id="sub4Button"
+                            className="btn btn-primary standardButton"
+                            onClick={this.handleAdd.bind(this, 4)}>+4</button>
+                    <button id="add10Button"
+                            className="btn btn-primary standardButton"
+                            onClick={this.handleAdd.bind(this, 10)}>+10</button>
                     <button onClick={this.remove}
                             id="delete-button"
                             className="btn btn-danger standardButton">
                         <span className="glyphicon glyphicon-trash"
                               style={{"vertical-align":"-5px"}}>{}</span>
                     </button>
-                    <input type="text" className="standardTextBox"/>
+                    <input type="text"
+                           className="standardTextBox"
+                           value={this.state.textBoxName}
+                           onChange={this.handleTextBoxChange}/>
                 </span>
             </div>
         );
@@ -57,11 +80,14 @@ var Board = React.createClass({
         }
     },
     getInitialState: function() {
-        //TODO: Create Persistent Scores
+
         var initialJSONObject = {
-            "players": [0,0,0]
+            "scores": [0,0,0],
+            "names": ["","",""]
         };
-        //Store if not found
+
+        //TODO: Create Persistent Scores
+        /*//Store if not found
         if (window.localStorage.getItem("storedScores") === null) {
             window.localStorage.setItem("storedScores", JSON.stringify(initialJSONObject));
         }
@@ -69,10 +95,13 @@ var Board = React.createClass({
         //Grab the stored object
         var storedJSON = window.localStorage.getItem("storedScores");
         var playersArray = JSON.parse(storedJSON).players;
-        //alert(playersArray.toString());
+        var namesArray = JSON.parse(storedJSON).names;*/
+
+        //alert(namesArray.toString());
         //Return the player key
         return {
-            scores: playersArray
+            scores: initialJSONObject.scores,
+            names: initialJSONObject.names
         };
     },
     componentWillUnmount: function () {
@@ -97,13 +126,20 @@ var Board = React.createClass({
         arr.push(number);
         this.setState({scores: arr});
     },
+    getName: function (i) {
+        alert(this.state.names[i]);
+        return (
+            this.state.names[i]
+        );
+    },
     eachScore: function(score, i) {
         return (
             <Person key={i}
-        index={i}
-        onChange={this.update}
-        onRemove={this.remove}
-        >{score}</Person>
+                    index={i}
+                    onChange={this.update}
+                    onRemove={this.remove}
+                    textBoxName={this.getName(i)} >{score}
+            </Person>
         );
     },
     render: function() {
@@ -111,6 +147,7 @@ var Board = React.createClass({
             {this.state.scores.map(this.eachScore)}
             <button className="btn btn-sm btn-success glyphicon glyphicon-plus"
                     onClick={this.add.bind(null, 0)}/>
+                <button className="btn btn-sm btn-info glyphicon glyphicon-piggy-bank"/>
         </div>
         );
     }
