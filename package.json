@@ -16,7 +16,7 @@
     "react",
     "carcassone"
   ],
-  "author": "Luke Sweatman",
+  "author": "Luke T Sweatman",
   "license": "ISC",
   "devDependencies": {
     "babel-cli": "^6.4.0",
