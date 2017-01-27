@@ -4,15 +4,21 @@
 var Person = React.createClass({
     getInitialState: function () {
         var test = this.props.children;
+        var initialTextBoxName = this.props.textBoxName;
         return {
             textAreaValue: test,
-            textBoxName: this.props.textBoxName
+            textBoxName: initialTextBoxName
         }
     },
     handleTextBoxChange: function (evt) {
+        //Async function to report back textbox changes to parent
         this.setState({
             textBoxName: evt.target.value.substring(0,10)
+        }, () => {
+            console.log(this.state.textBoxName);
+            this.props.textBoxChanged(this.state.textBoxName, this.props.index);
         });
+
     },
     handleAdd: function (addFactor) {
 		var oldValue = this.state.textAreaValue;
@@ -112,25 +118,36 @@ var Board = React.createClass({
         window.localStorage.setItem("storedScores", JSON.stringify(finalStorageJSON));
     },
     update: function(newScore, i) {
-        var arr = this.state.scores;
-        arr[i] = newScore;
-        this.setState({scores:arr});
+        var scoreArr = this.state.scores;
+
+        scoreArr[i] = newScore;
+
+        this.setState({
+            scores: scoreArr,
+        });
     },
     remove: function(i) {
-        var arr = this.state.scores;
-        arr.splice(i, 1);
-        this.setState({scores: arr});
+        var scoreArr = this.state.scores;
+        var nameArr = this.state.names;
+
+        scoreArr.splice(i, 1);
+        nameArr.splice(i, 1);
+
+        this.setState({
+            scores: scoreArr,
+            names: nameArr
+        });
     },
     add: function(number) {
-        var arr = this.state.scores;
-        arr.push(number);
-        this.setState({scores: arr});
-    },
-    getName: function (i) {
-        alert(this.state.names[i]);
-        return (
-            this.state.names[i]
-        );
+        var scoreArr = this.state.scores;
+        var nameArr = this.state.names;
+
+        scoreArr.push(number);
+        nameArr.push("");
+        this.setState({
+            scores: scoreArr,
+            names: nameArr
+        });
     },
     eachScore: function(score, i) {
         return (
@@ -138,9 +155,17 @@ var Board = React.createClass({
                     index={i}
                     onChange={this.update}
                     onRemove={this.remove}
-                    textBoxName={this.getName(i)} >{score}
+                    textBoxName={this.state.names[i]}
+                    textBoxChanged={this.handleTextBoxChange}>{score}
             </Person>
         );
+    },
+    handleTextBoxChange: function (value, i) {
+        var nameArr = this.state.names;
+        nameArr[i] = value;
+        this.setState({
+            names: nameArr
+        });
     },
     render: function() {
         return (<div className="board">
