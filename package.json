@@ -5,7 +5,7 @@
   "main": "Counters.js",
   "scripts": {
     "build": "babel js -d built",
-    "start": "open http://localhost:3000 & httpster -p 3000"
+    "start": "httpster -p 3000"
   },
   "babel": {
     "presets": [
