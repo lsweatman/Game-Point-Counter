@@ -11,12 +11,12 @@ var Person = React.createClass({
         }
     },
     handleTextBoxChange: function (evt) {
+        //TODO: Get the async function working for iOS Safari - use component function or global variables
         //Async function to report back textbox changes to parent
         this.setState({
-            textBoxName: evt.target.value.substring(0,10)
-        }, () => {
-            console.log(this.state.textBoxName);
-            this.props.textBoxChanged(this.state.textBoxName, this.props.index);
+            textBoxName: evt.target.value.substring(0, 10)
+        /*}, () => {
+            this.props.textBoxChanged(this.state.textBoxName, this.props.index);*/
         });
 
     },
