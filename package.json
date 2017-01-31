@@ -1,5 +1,5 @@
 {
-  "name": "carcassone-counter",
+  "name": "game-scoreboard",
   "version": "1.0.0",
   "description": "Score Keeper",
   "main": "Counters.js",
@@ -14,7 +14,7 @@
   },
   "keywords": [
     "react",
-    "carcassone"
+    "boardgames"
   ],
   "author": "Luke T Sweatman",
   "license": "ISC",
